@@ -6,8 +6,7 @@ import { selectRace } from '../redux/modules/userInput';
 
 import { colors } from '../variables';
 
-const SelectorCard = ({ name, distance, selected, onPress }) => {
-  const isThousands = distance.toString().length > 3;
+const SelectorCard = ({ name, distanceText, selected, onPress }) => {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={[styles.card, selected && styles.cardSelected]}>
@@ -17,8 +16,7 @@ const SelectorCard = ({ name, distance, selected, onPress }) => {
             color: selected ? 'white' : styles.cardDistance.color,
           }}
         >
-          {isThousands ? distance / 1000 : distance}
-          <Text style={styles.cardUnit}> {isThousands ? 'km' : 'm'}</Text>
+          {distanceText}
         </Text>
         <Text style={{ ...styles.cardName, color: selected ? 'white' : styles.cardName.color }}>
           {name}
@@ -35,14 +33,14 @@ const Selector = ({ userInput, selectRace }) => {
       horizontal={true}
       showsHorizontalScrollIndicator={false}
     >
-      {userInput.races.map(({ name, distance }, index) => (
+      {userInput.races.map(({ name, distanceText }, index) => (
         <SelectorCard
           onPress={() => {
             selectRace(index);
           }}
           key={name}
           name={name}
-          distance={distance}
+          distanceText={distanceText}
           selected={index === userInput.selectedRaceIndex}
         />
       ))}
@@ -56,7 +54,7 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: colors.grey,
-    width: 120,
+    width: 132,
     height: 104,
     display: 'flex',
     alignItems: 'center',

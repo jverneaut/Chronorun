@@ -19,15 +19,12 @@ const Home = () => (
         <Selector />
         <TextToggle option1={'Prédéfini'} option2={'Custom'} />
         <TimeSelector />
-        <TextToggle option1={'Allure'} option2={'Vitesse'} />
-      </Section>
-      <Section>
-        <H2>Estimations</H2>
-        <Table />
-      </Section>
-      <Section>
-        <H2>Estimations</H2>
-        <Table />
+        <View
+          style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}
+        >
+          <TextToggle option1={'Prédéfini'} option2={'Custom'} />
+          <TextToggle option1={'Allure'} option2={'Vitesse'} />
+        </View>
       </Section>
       <Section>
         <H2>Estimations</H2>
