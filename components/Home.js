@@ -8,17 +8,18 @@ import Nav from './Nav';
 import Selector from './Selector';
 import TimeSelector from './TimeSelector';
 import Table from './Table';
+import TextToggle from './TextToggle';
 
 const Home = () => (
   <View style={styles.container}>
-    <Section>
-      <Nav />
-    </Section>
+    <Nav />
     <ScrollView>
       <Section hasMarginTop={false}>
         <H2>Informations</H2>
         <Selector />
+        <TextToggle option1={'Prédéfini'} option2={'Custom'} />
         <TimeSelector />
+        <TextToggle option1={'Allure'} option2={'Vitesse'} />
       </Section>
       <Section>
         <H2>Estimations</H2>
