@@ -1,45 +1,15 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Text, View, ScrollView, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+
+import { selectRace } from '../redux/modules/userInput';
 
 import { colors } from '../variables';
 
-import { Text, View, ScrollView, StyleSheet, TouchableWithoutFeedback } from 'react-native';
-
-const data = [
-  {
-    name: '500 m',
-    distance: 500,
-  },
-  {
-    name: '1 500 m',
-    distance: 1500,
-  },
-  {
-    name: '2 000 m',
-    distance: 2000,
-  },
-  {
-    name: '5 km',
-    distance: 5000,
-  },
-  {
-    name: '10 km',
-    distance: 10000,
-  },
-  {
-    name: 'semi-marathon',
-    distance: 21000,
-  },
-  {
-    name: 'marathon',
-    distance: 42000,
-  },
-];
-
-const SelectorCard = ({ name, distance, selected, onTouch }) => {
+const SelectorCard = ({ name, distance, selected, onPress }) => {
   const isThousands = distance.toString().length > 3;
   return (
-    <TouchableWithoutFeedback onPress={onTouch}>
+    <TouchableWithoutFeedback onPress={onPress}>
       <View style={[styles.card, selected && styles.cardSelected]}>
         <Text
           style={{
@@ -58,23 +28,22 @@ const SelectorCard = ({ name, distance, selected, onTouch }) => {
   );
 };
 
-const Selector = ({ userInput }) => {
-  const [selected, setSelected] = useState(0);
-  console.log(userInput);
-
+const Selector = ({ userInput, selectRace }) => {
   return (
     <ScrollView
       style={styles.container}
       horizontal={true}
       showsHorizontalScrollIndicator={false}
     >
-      {data.map(({ name, distance }, index) => (
+      {userInput.races.map(({ name, distance }, index) => (
         <SelectorCard
-          onTouch={() => setSelected(index)}
+          onPress={() => {
+            selectRace(index);
+          }}
           key={name}
           name={name}
           distance={distance}
-          selected={index === selected}
+          selected={index === userInput.selectedRaceIndex}
         />
       ))}
     </ScrollView>
@@ -104,7 +73,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   cardDistance: {
-    fontSize: 32,
+    fontSize: 24,
   },
   cardUnit: {
     fontSize: 12,
@@ -112,4 +81,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(({ userInput }) => ({ userInput }))(Selector);
+export default connect(
+  ({ userInput }) => ({ userInput }),
+  { selectRace }
+)(Selector);
