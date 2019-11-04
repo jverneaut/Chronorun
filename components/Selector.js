@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import { colors } from '../variables';
 
@@ -57,8 +58,10 @@ const SelectorCard = ({ name, distance, selected, onTouch }) => {
   );
 };
 
-const Selector = () => {
+const Selector = ({ userInput }) => {
   const [selected, setSelected] = useState(0);
+  console.log(userInput);
+
   return (
     <ScrollView
       style={styles.container}
@@ -77,8 +80,6 @@ const Selector = () => {
     </ScrollView>
   );
 };
-
-export default Selector;
 
 const styles = StyleSheet.create({
   container: {
@@ -110,3 +111,5 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 });
+
+export default connect(({ userInput }) => ({ userInput }))(Selector);
